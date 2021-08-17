@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "399086123676",
+    "project_id": "resale-application",
+    "storage_bucket": "resale-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399086123676:android:07c1f61678fe1cbc9f8b59",
+        "android_client_info": {
+          "package_name": "com.flutter.resale_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399086123676-3550uihl51if55lpce1pc1mrh189ujkv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flutter.resale_application",
+            "certificate_hash": "53afaf6f05232acd78ef2eefcd53cd67e1c916fb"
+          }
+        },
+        {
+          "client_id": "399086123676-6uns47v9bi1ogquatku2ec6sm2nmn2mv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2fbRMlDemcWaWRYR2l1vwLZN-abMfepo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399086123676-6uns47v9bi1ogquatku2ec6sm2nmn2mv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
