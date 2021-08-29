@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'ad_upload_page.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Flutter login page',
       theme: new ThemeData(primarySwatch: Colors.blue),
-      home: new LoginPage(),
+      home: new AdUploadPage(),
     );
   }
 }
