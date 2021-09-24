@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+//import 'home/home.dart';
+import 'home/nav.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -29,13 +31,17 @@ class _LoginPageState extends State<LoginPage> {
       try {
         if (_formType == FormType.login) {
           UserCredential userCredential = await FirebaseAuth.instance
-              .signInWithEmailAndPassword(email: _email, password: _password);
+            .signInWithEmailAndPassword(email: _email, password: _password);
           print('Signed in: ${userCredential.user!.uid}');
+          Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Nav()));
         } else {
           UserCredential userCredential = await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
                   email: _email, password: _password);
           print('Registerd User is ${userCredential.user!.uid}');
+          Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Nav()));
         }
       } catch (e) {
         print('Error: $e');
@@ -60,17 +66,22 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Login page'),
-      ),
+      /*appBar: new AppBar(
+        title: new Text('CRA - SSN login'),
+      ),*/
       body: new Container(
-        padding: EdgeInsets.fromLTRB(24, 40, 24, 24),
+        padding: EdgeInsets.fromLTRB(40, 270, 24, 24),
         child: new Form(
-            key: formKey,
-            child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: buildInputs() + buildSubmitButtons(),
-            )),
+          key: formKey,
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: buildInputs() + buildSubmitButtons(),
+          ),
+        ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/loginpage.gif'), fit: BoxFit.fill),
+        ),
       ),
     );
   }
@@ -79,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
     return [
       new TextFormField(
         decoration: new InputDecoration(
-            fillColor: Colors.grey.shade300,
+            fillColor: Colors.black,
             filled: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             focusedBorder: OutlineInputBorder(
@@ -94,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
       SizedBox(height: 24,),
       new TextFormField(
         decoration: new InputDecoration(
-            fillColor: Colors.grey.shade300,
+            fillColor: Colors.black,
             filled: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             focusedBorder: OutlineInputBorder(

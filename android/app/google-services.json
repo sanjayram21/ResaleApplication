@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "399086123676",
+    "firebase_url": "https://resale-application-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "resale-application",
     "storage_bucket": "resale-application.appspot.com"
   },
