@@ -26,7 +26,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build (BuildContext context) {
     return Dialog (
       child: Column(
         children: [
