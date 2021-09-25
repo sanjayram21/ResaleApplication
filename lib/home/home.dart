@@ -9,6 +9,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Search Product"), actions: <Widget>[
+        IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: DataSearch());
+            })
+      ]),
       body: Stack(
         children: <Widget>[
           Container(
@@ -46,6 +53,92 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+class DataSearch extends SearchDelegate<String> {
+  final cities = [
+    "calculator",
+    "mini drafter",
+    "books",
+    "laptops",
+    "udemy",
+    "accounts",
+    "locks",
+    "bicycles",
+    "accesories",
+    "electronics",
+    "notes",
+  ];
+  final recentCities = ["mini drafter", "calculator", "books"];
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    // actions for appbar
+    return [
+      IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            query = "";
+          })
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // leading icon on the left of the appbar
+    return IconButton(
+        icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_arrow,
+          progress: transitionAnimation,
+        ),
+        onPressed: () {
+          close(context, "null");
+        });
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // show result based on the keyword searched
+    return Center(
+      child: Container(
+        height: 300.0,
+        width: 300.0,
+        child: Card(
+          color: Colors.cyan,
+          child: Center(
+            child: Text(query),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // show when an item is searched
+    final suggestionList = query.isEmpty
+        ? recentCities
+        : cities.where((p) => p.startsWith(query)).toList();
+
+    return ListView.builder(
+      itemBuilder: (context, index) => ListTile(
+        onTap: () {
+          showResults(context);
+        },
+        //leading: Icon(Icons.location_city),
+        title: RichText(
+            text: TextSpan(
+                text: suggestionList[index].substring(0, query.length),
+                style:
+                    TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),
+                children: [
+              TextSpan(
+                  text: suggestionList[index].substring(query.length),
+                  style: TextStyle(color: Colors.grey))
+            ])),
+      ),
+      itemCount: suggestionList.length,
+    );
+  }
+}
+
 
 /*
 class _HomeScreenState extends State<HomeScreen> {
@@ -80,3 +173,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   */
+
