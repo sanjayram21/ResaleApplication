@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
 import '../ad_upload/ad_upload.dart';
+import '../profile/profile_page.dart';
 
 class Nav extends StatefulWidget {
   @override
@@ -12,7 +13,8 @@ class _NavState extends State<Nav> {
   List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     AdUploadPage(),
-    Text('Profile'),
+    //Text('Profile'),
+    ProfilePage(),
   ];
 
   void _onItemTap(int index) {

@@ -53,10 +53,17 @@ flutter:
   assets:
   #  - assets/logopng.png
    # - assets/logogif.gif
-    - assets/spla2.gif
-    - assets/loginpage.gif
-    - assets/bg3.png
+    - assets/bg1.png
     - assets/bg2.png
+    - assets/bg3.png
+    - assets/boxed login.gif
+    - assets/Logo gif.gif
+    - assets/Logo png.png
+    - assets/splash1.gif
+    - assets/splash2.gif
+    - assets/loginpage.gif
+    - assets/no_image.png
+    - assets/spla2.gif
   #  -assets/bg.png
   #  -assets/logo.png
   #   - images/a_dot_burr.jpeg
