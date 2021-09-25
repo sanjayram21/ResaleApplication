@@ -2,17 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'home/home.dart';
 import 'home/nav.dart';
-
+import 'forgot_password.dart';
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _LoginPageState();
 }
 
-enum FormType { login, register }
+enum FormType { login, register,reset }
 
 class _LoginPageState extends State<LoginPage> {
   String _email = "";
   String _password = "";
+  //String _name;
   FormType _formType = FormType.login;
 
   final formKey = new GlobalKey<FormState>();
@@ -35,14 +36,23 @@ class _LoginPageState extends State<LoginPage> {
           print('Signed in: ${userCredential.user!.uid}');
           Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => Nav()));
-        } else {
+        } else if(_formType == FormType.register){
           UserCredential userCredential = await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
                   email: _email, password: _password);
           print('Registerd User is ${userCredential.user!.uid}');
           Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => Nav()));
-        }
+        }else if(_formType == FormType.reset){
+          await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _email);
+          print("Password reset email sent");
+      //Navigator.of(context).pushReplacementNamed ('moveToReset');
+      setState(() {
+       _formType = FormType.login; 
+      });
+      }
+        
       } catch (e) {
         print('Error: $e');
       }
@@ -62,6 +72,14 @@ class _LoginPageState extends State<LoginPage> {
       _formType = FormType.login;
     });
   }
+  //
+  void moveToReset(){
+  formKey.currentState!.reset();
+  setState(() {
+  _formType = FormType.reset;  
+});
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +159,35 @@ class _LoginPageState extends State<LoginPage> {
             child: new Text(
               'Create an account',
               style: new TextStyle(fontSize: 20.0),
-            ))
+            )),
+        new TextButton(
+          onPressed:(){
+            Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ForgotPassword())
+            );
+          },
+      
+          child: new Text('Forgot Password?',
+          style: new TextStyle(fontSize:20.0,decoration: TextDecoration.underline),
+          ))
+          /*new TextButton(
+            onPressed:(){
+              validateAndSubmit();
+            },
+            child: new Container(
+              alignment: Alignment.center,
+              height: 60.0,
+              decoration: new BoxDecoration(
+                color:Color(0xFF18D191),
+                borderRadius: BorderRadius.circular(10.0)),
+              child: new Text(
+                "submit",
+                style: new TextStyle(
+                  fontSize: 20.0,color : Colors.white
+                 ),
+              ),)
+          ,)*/
+        
       ];
     } else {
       return [
