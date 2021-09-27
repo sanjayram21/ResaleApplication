@@ -140,12 +140,16 @@ class _AdUploadPageState extends State<AdUploadPage> {
               ),
               
               ElevatedButton(onPressed: _isValid ? () {
-                firestoreServices.writeToCollection("posts", {
+                firestoreServices.writeToCollection("users", {
                   "name": _nameContoller.text,
                   "price": _priceContoller.text,
                   "description": _detailsContoller.text,
                   "contact": _contactContoller.text,
                 });
+                _nameContoller.clear();
+                _contactContoller.clear();
+                _detailsContoller.clear();
+                _priceContoller.clear();
               } : null, child: new Text('Save details'))
             ],
           )

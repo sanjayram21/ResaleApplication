@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:resale_application/model/user_model.dart';
 //import 'home/home.dart';
 import 'home/nav.dart';
 import 'forgot_password.dart';
@@ -33,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
         if (_formType == FormType.login) {
           UserCredential userCredential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
+          initializeUserModel(userCredential.user);  
           print('Signed in: ${userCredential.user!.uid}');
           Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => Nav()));
@@ -40,6 +42,8 @@ class _LoginPageState extends State<LoginPage> {
           UserCredential userCredential = await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
                   email: _email, password: _password);
+          initializeUserModel(userCredential.user);  
+
           print('Registerd User is ${userCredential.user!.uid}');
           Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => Nav()));
