@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resale_application/services/firebase.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    printPosts();
     return Scaffold(
       appBar: AppBar(title: Text("Search Product"), actions: <Widget>[
         IconButton(
@@ -16,35 +18,49 @@ class _HomeScreenState extends State<HomeScreen> {
               showSearch(context: context, delegate: DataSearch());
             })
       ]),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/bg3.png'), fit: BoxFit.fill),
-            ),
-          ),
-          /*Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(16, 6, 16, 60),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(9),
-                  topRight: Radius.circular(9),
-                ),
-              ),
-            ),
-          )*/
-        ],
-      ),
-      /*
-      floatingActionButton: hbutton(
-        onPressed: AdUploadPage,
-      ),*/
+      body: FutureBuilder(
+          future: firestoreServices.readAllPosts(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              final data = snapshot.data as List<Map<String, dynamic>>;
+              return ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (_, position) {
+                    return Text(data[position]['contact']);
+                  });
+            } else {
+              return Container();
+            }
+          }),
+      // body: Stack(
+      //   children: <Widget>[
+      //     Container(
+      //       decoration: BoxDecoration(
+      //         image: DecorationImage(
+      //             image: AssetImage('assets/bg3.png'), fit: BoxFit.fill),
+      //       ),
+      //     ),
+      //     /*Positioned(
+      //       left: 0,
+      //       right: 0,
+      //       bottom: 0,
+      //       child: Container(
+      //         padding: const EdgeInsets.fromLTRB(16, 6, 16, 60),
+      //         decoration: BoxDecoration(
+      //           color: Colors.white,
+      //           borderRadius: BorderRadius.only(
+      //             topLeft: Radius.circular(9),
+      //             topRight: Radius.circular(9),
+      //           ),
+      //         ),
+      //       ),
+      //     )*/
+      //   ],
+      // ),
+      // /*
+      // floatingActionButton: hbutton(
+      //   onPressed: AdUploadPage,
+      // ),*/
     );
   }
 
@@ -139,7 +155,6 @@ class DataSearch extends SearchDelegate<String> {
   }
 }
 
-
 /*
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -174,3 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   */
 
+printPosts() async {
+  print(await firestoreServices.readAllPosts());
+  print(await firestoreServices.readUserPost('users'));
+}

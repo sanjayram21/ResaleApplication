@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Colors.black,
-        accentColor: Colors.cyan,
         //primarySwatch: Colors.red,
       ),
       home: MyHomePage(),
@@ -35,18 +34,20 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        Duration(seconds: 13),
-        (){
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>LoginPage(),));
-        } );
-        //=> Navigator.pushReplacement(
-         //   context, MaterialPageRoute(builder: (context) => SecondScreen())));
-  
+    Timer(Duration(seconds: 1), () {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
+          ));
+    });
+    //=> Navigator.pushReplacement(
+    //   context, MaterialPageRoute(builder: (context) => SecondScreen())));
+
     //Timer(
-      //  Duration(seconds: 5),
-       // () => Navigator.pushReplacement(
-       //    context, MaterialPageRoute(builder: (context) => LoginPage())));
+    //  Duration(seconds: 5),
+    // () => Navigator.pushReplacement(
+    //    context, MaterialPageRoute(builder: (context) => LoginPage())));
   }
 
   @override
@@ -54,13 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         //appBar: AppBar(title: Text("CRA: Goods from people you know")),
         body: Center(
-          child: Image(
-            image: AssetImage('assets/spla2.gif'),
-            width: 500,
-            height: 800,
-            fit: BoxFit.cover,
-            //semanticLabel: 'logo',
-          ),
-        ));
+      child: Image(
+        image: AssetImage('assets/spla2.gif'),
+        width: 500,
+        height: 800,
+        fit: BoxFit.cover,
+        //semanticLabel: 'logo',
+      ),
+    ));
   }
 }
