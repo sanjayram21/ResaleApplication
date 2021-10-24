@@ -10,6 +10,8 @@ class FirestoreServices {
     final collectionRef2 =
         collectionReference.doc(userModel!.user.uid).collection("items");
     collectionRef2.add(data);
+    final collectionRef3 = _firebaseFirestore.collection("ads");
+    collectionRef3.add(data);
   }
 
   Future<void> writeToProfileCollection(
