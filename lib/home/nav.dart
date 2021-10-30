@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resale_application/services/firebase.dart';
 import 'home.dart';
 import '../ad_upload/ad_upload.dart';
 import '../profile/profile_page.dart';
@@ -10,12 +11,6 @@ class Nav extends StatefulWidget {
 
 class _NavState extends State<Nav> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    AdUploadPage(),
-    //Text('Profile'),
-    ProfilePage(),
-  ];
 
   void _onItemTap(int index) {
     setState(() {
@@ -30,7 +25,28 @@ class _NavState extends State<Nav> {
         title: Text('Bottom Navigation Bar Tutorial'),
       ),*/
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: <Widget>[
+    FutureBuilder(
+        future: firestoreServices.readAllPosts(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            final data = snapshot.data as List<Map<String, dynamic>>;
+            return HomeScreen(
+              items: data,
+            );
+          } else {
+            return Scaffold(
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [CircularProgressIndicator()],
+              ),
+            );
+          }
+        }),
+    AdUploadPage(),
+    //Text('Profile'),
+    ProfilePage(),
+  ][_selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

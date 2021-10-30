@@ -1,15 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resale_application/model/user_model.dart';
 //import 'home/home.dart';
 import 'home/nav.dart';
 import 'forgot_password.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _LoginPageState();
 }
 
-enum FormType { login, register,reset }
+enum FormType { login, register, reset }
 
 class _LoginPageState extends State<LoginPage> {
   String _email = "";
@@ -33,30 +35,28 @@ class _LoginPageState extends State<LoginPage> {
       try {
         if (_formType == FormType.login) {
           UserCredential userCredential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: _email, password: _password);
-          initializeUserModel(userCredential.user);  
+              .signInWithEmailAndPassword(email: _email, password: _password);
+          initializeUserModel(userCredential.user);
           print('Signed in: ${userCredential.user!.uid}');
           Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => Nav()));
-        } else if(_formType == FormType.register){
+              .push(MaterialPageRoute(builder: (context) => Nav()));
+        } else if (_formType == FormType.register) {
           UserCredential userCredential = await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
                   email: _email, password: _password);
-          initializeUserModel(userCredential.user);  
+          initializeUserModel(userCredential.user);
 
           print('Registerd User is ${userCredential.user!.uid}');
           Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => Nav()));
-        }else if(_formType == FormType.reset){
-          await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: _email);
+              .push(MaterialPageRoute(builder: (context) => Nav()));
+        } else if (_formType == FormType.reset) {
+          await FirebaseAuth.instance.sendPasswordResetEmail(email: _email);
           print("Password reset email sent");
-      //Navigator.of(context).pushReplacementNamed ('moveToReset');
-      setState(() {
-       _formType = FormType.login; 
-      });
-      }
-        
+          //Navigator.of(context).pushReplacementNamed ('moveToReset');
+          setState(() {
+            _formType = FormType.login;
+          });
+        }
       } catch (e) {
         print('Error: $e');
       }
@@ -76,14 +76,14 @@ class _LoginPageState extends State<LoginPage> {
       _formType = FormType.login;
     });
   }
-  //
-  void moveToReset(){
-  formKey.currentState!.reset();
-  setState(() {
-  _formType = FormType.reset;  
-});
-}
 
+  //
+  void moveToReset() {
+    formKey.currentState!.reset();
+    setState(() {
+      _formType = FormType.reset;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,9 @@ class _LoginPageState extends State<LoginPage> {
         },
         onSaved: (value) => _email = value.toString(),
       ),
-      SizedBox(height: 24,),
+      SizedBox(
+        height: 24,
+      ),
       new TextFormField(
         decoration: new InputDecoration(
             fillColor: Colors.black,
@@ -165,16 +167,16 @@ class _LoginPageState extends State<LoginPage> {
               style: new TextStyle(fontSize: 20.0),
             )),
         new TextButton(
-          onPressed:(){
-            Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ForgotPassword())
-            );
-          },
-      
-          child: new Text('Forgot Password?',
-          style: new TextStyle(fontSize:20.0,decoration: TextDecoration.underline),
-          ))
-          /*new TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ForgotPassword()));
+            },
+            child: new Text(
+              'Forgot Password?',
+              style: new TextStyle(
+                  fontSize: 20.0, decoration: TextDecoration.underline),
+            ))
+        /*new TextButton(
             onPressed:(){
               validateAndSubmit();
             },
@@ -191,12 +193,19 @@ class _LoginPageState extends State<LoginPage> {
                  ),
               ),)
           ,)*/
-        
       ];
     } else {
       return [
         new ElevatedButton(
             onPressed: validateAndSubmit,
+            // onPressed: () => Fluttertoast.showToast(
+            //     msg: "This is Center Short Toast",
+            //     toastLength: Toast.LENGTH_SHORT,
+            //     gravity: ToastGravity.CENTER,
+            //     timeInSecForIosWeb: 1,
+            //     backgroundColor: Colors.red,
+            //     textColor: Colors.white,
+            //     fontSize: 16.0),
             child: new Text(
               'Create an account',
               style: new TextStyle(fontSize: 20.0),
