@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resale_application/model/user_model.dart';
-//import 'home/home.dart';
 import 'home/nav.dart';
 import 'forgot_password.dart';
 
@@ -92,14 +91,20 @@ class _LoginPageState extends State<LoginPage> {
         title: new Text('CRA - SSN login'),
       ),*/
       body: new Container(
-        padding: EdgeInsets.fromLTRB(40, 270, 24, 24),
-        child: new Form(
-          key: formKey,
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: buildInputs() + buildSubmitButtons(),
+        child: ListView(children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(40, 350, 24, 24),
+            child: new Form(
+              key: formKey,
+              child: Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: buildInputs() + buildSubmitButtons(),
+                ),
+              ),
+            ),
           ),
-        ),
+        ]),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/loginpage.gif'), fit: BoxFit.fill),
@@ -176,36 +181,12 @@ class _LoginPageState extends State<LoginPage> {
               style: new TextStyle(
                   fontSize: 20.0, decoration: TextDecoration.underline),
             ))
-        /*new TextButton(
-            onPressed:(){
-              validateAndSubmit();
-            },
-            child: new Container(
-              alignment: Alignment.center,
-              height: 60.0,
-              decoration: new BoxDecoration(
-                color:Color(0xFF18D191),
-                borderRadius: BorderRadius.circular(10.0)),
-              child: new Text(
-                "submit",
-                style: new TextStyle(
-                  fontSize: 20.0,color : Colors.white
-                 ),
-              ),)
-          ,)*/
+        
       ];
     } else {
       return [
         new ElevatedButton(
             onPressed: validateAndSubmit,
-            // onPressed: () => Fluttertoast.showToast(
-            //     msg: "This is Center Short Toast",
-            //     toastLength: Toast.LENGTH_SHORT,
-            //     gravity: ToastGravity.CENTER,
-            //     timeInSecForIosWeb: 1,
-            //     backgroundColor: Colors.red,
-            //     textColor: Colors.white,
-            //     fontSize: 16.0),
             child: new Text(
               'Create an account',
               style: new TextStyle(fontSize: 20.0),
