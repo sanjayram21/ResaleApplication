@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resale_application/model/user_model.dart';
+//import 'home/home.dart';
 import 'home/nav.dart';
 import 'forgot_password.dart';
 
@@ -86,12 +87,15 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      /*appBar: new AppBar(
-        title: new Text('CRA - SSN login'),
-      ),*/
-      body: new Container(
-        child: ListView(children: [
+    return new Container( 
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/loginpage.gif'), fit: BoxFit.fill),
+        ),
+        child:
+        new Scaffold(
+        backgroundColor: Colors.transparent,
+        body:  ListView(children: [
           Container(
             padding: EdgeInsets.fromLTRB(40, 350, 24, 24),
             child: new Form(
@@ -105,11 +109,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-        ]),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/loginpage.gif'), fit: BoxFit.fill),
-        ),
+        ]),  
       ),
     );
   }
@@ -182,7 +182,6 @@ class _LoginPageState extends State<LoginPage> {
               style: new TextStyle(
                   fontSize: 20.0, decoration: TextDecoration.underline),
             ))
-        
       ];
     } else {
       return [
