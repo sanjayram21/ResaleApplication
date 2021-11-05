@@ -98,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
               key: formKey,
               child: Expanded(
                 child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: buildInputs() + buildSubmitButtons(),
                 ),
