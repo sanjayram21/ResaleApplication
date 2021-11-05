@@ -38,7 +38,7 @@ class _NavState extends State<Nav> {
             return Scaffold(
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [CircularProgressIndicator()],
+                children: [LinearProgressIndicator()],
               ),
             );
           }
