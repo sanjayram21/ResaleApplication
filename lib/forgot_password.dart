@@ -8,8 +8,14 @@ class ForgotPassword extends StatelessWidget {
   TextEditingController editController = TextEditingController();
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
+    return new Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/fp.gif'), fit: BoxFit.contain),
+      ),
+      child: new Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
         title:Text("Forgot Password"),
         ),
       body: Container(
@@ -40,12 +46,15 @@ class ForgotPassword extends StatelessWidget {
                   style: TextStyle(color: Colors.white)
                   ),
                 ),
-              )
-          ],
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      )
+   );
+  } 
+      
+  
   
   void resetPassword(BuildContext context) async{
     if(editController.text.length==0 || !editController.text.contains("@")){
