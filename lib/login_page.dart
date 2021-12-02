@@ -87,15 +87,14 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container( 
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/loginpage.gif'), fit: BoxFit.fill),
-        ),
-        child:
-        new Scaffold(
+    return new Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/loginpage.gif'), fit: BoxFit.fill),
+      ),
+      child: new Scaffold(
         backgroundColor: Colors.transparent,
-        body:  ListView(children: [
+        body: ListView(children: [
           Container(
             padding: EdgeInsets.fromLTRB(40, 350, 24, 24),
             child: new Form(
@@ -109,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-        ]),  
+        ]),
       ),
     );
   }
@@ -126,7 +125,12 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(0)),
             labelText: 'Email'),
         validator: (String? value) {
-          return value!.isEmpty ? 'Email can\'t be empty' : null;
+          if (value!.isEmpty)
+            return 'Email can\'t be empty';
+          else if (!value.endsWith("ssn.edu.in"))
+            return 'Use official ssn email';
+          else
+            return null;
         },
         onSaved: (value) => _email = value.toString(),
       ),
